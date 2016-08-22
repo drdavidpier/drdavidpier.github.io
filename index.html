@@ -77,7 +77,15 @@
 for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElement("script");b.type="text/javascript";b.async=!0;b.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"file:"===e.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";c=e.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c)}})(document,window.mixpanel||[]);
 mixpanel.init("e2ed22867c951d08bcc898d85a7db82e");</script>
 
-    <script type="text/javascript">mixpanel.track("Page Loaded");</script><!-- end Mixpanel -->
+    <script type="text/javascript">mixpanel.track("Page Loaded");</script>
+    
+    <script type="text/javascript">
+    mixpanel.track_links("#nav a", "Google play button click", {
+        "referrer": document.referrer
+    });
+</script>
+    
+    <!-- end Mixpanel -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="../../dist/js/bootstrap.min.js"></script>
