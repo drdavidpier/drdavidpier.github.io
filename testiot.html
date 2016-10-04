@@ -1,0 +1,76 @@
+<style>
+body {text-align:center;}
+</style>
+<h1>Light Cloud Demo</h1>
+Cloud Status:<div id=status>Disconnected
+</div>
+Light Status:<div id=lamp>Disconnected
+</div>
+<img id="Light"
+ style="padding-left:28px"
+ src="https://sandbox.simblee.com/~acct1010/Images/LightOff.png"
+ alt="Light Off"
+ height = "400"
+ width = "400">
+<br>
+<br>
+<br>
+<button id=switchon>Light On</button>
+<button id=switchoff>Light Off</button>
+<script type="text/javascript" src="SimbleeCloud.js"></script>
+<script type="text/javascript">
+var output = document.getElementById("status");
+var light = document.getElementById("Light");
+var cloud = new SimbleeCloud();
+cloud.myESN = 0x00001010;
+cloud.userID = 0xd448c367;
+destESN = 0x75f4047a;
+cloud.connect();
+cloud.onactive = function() {
+ output.innerHTML = "Connected";
+ var payload = new ArrayBuffer(1);
+ var view = new DataView(payload);
+ view.setUint8(0,"2".charCodeAt(0));
+ cloud.send(destESN, payload);
+}
+cloud.oninactive = function() {
+ output.innerHTML = "Disconnected";
+}
+setInterval(function(){
+ var payload = new ArrayBuffer(1);
+ var view = new DataView(payload);
+ view.setUint8(0,"2".charCodeAt(0));
+ cloud.send(destESN,payload);
+},1000);
+var myVar = setInterval(function myTimer(){
+ lamp.innerHTML = "Disconnected";
+}
+, 2000);
+document.getElementById("switchon").onclick = function() {
+ var payload = new ArrayBuffer(1);
+ var view = new DataView(payload);
+ view.setUint8(0,"1".charCodeAt(0));
+ cloud.send(destESN, payload);
+}
+document.getElementById("switchoff").onclick = function() {
+ var payload = new ArrayBuffer(1);
+ var view = new DataView(payload);
+ view.setUint8(0,"0".charCodeAt(0));
+ cloud.send(destESN, payload);
+}
+cloud.onrequest = function(originESN,payload){
+ window.clearInterval(myVar);
+ myVar = setInterval(function myTimer(){
+ lamp.innerHTML = "Disconnected";
+ },1500);
+ var view = new DataView(payload);
+ var data = String.fromCharCode(view.getUint8(0));
+ lamp.innerHTML = "Connected";
+ if(data == '1'){
+ light.src = "https://sandbox.simblee.com/~acct1010/Images/LightOn.png";
+ }
+ else if(data =='0'){
+ light.src = "https://sandbox.simblee.com/~acct1010/Images/LightOff.png";
+ }
+}
+</script>
