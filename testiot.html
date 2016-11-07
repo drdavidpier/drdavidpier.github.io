@@ -22,9 +22,9 @@ Light Status:<div id=lamp>Disconnected
 var output = document.getElementById("status");
 var light = document.getElementById("Light");
 var cloud = new SimbleeCloud();
-cloud.myESN = 0x00002020;
+cloud.myESN = 0x00001010;
 cloud.userID = 0x5e3a2eb6;
-destESN = 0x598fe7a0;
+destESN = 0x00002020; //0x598fe7a0;
 cloud.connect();
 cloud.onactive = function() {
  output.innerHTML = "Connected";
